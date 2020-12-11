@@ -18,12 +18,9 @@ app.get("/newFeeds",(req,res)=>{
     if(isNaN(offset)){
         offset=0;
     }
-    newsArticleModel.find().then(result=>{
-        let resultArray=[];
-        for(let start=offset;start<=offset+limit;start++){
-            resultArray.push(result[start]);
-        }
-        res.send(resultArray);
+    newsArticleModel.find().limit(parseInt(limit)).skip(parseInt(offset)).then(result=>{
+       
+        res.send(result);
     }).catch(()=>res.send([]));
 })
 
